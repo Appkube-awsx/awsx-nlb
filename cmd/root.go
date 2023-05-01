@@ -25,19 +25,18 @@ var AwsxLoadBalancerCmd = &cobra.Command{
 		acKey := cmd.PersistentFlags().Lookup("accessKey").Value.String()
 		secKey := cmd.PersistentFlags().Lookup("secretKey").Value.String()
 		crossAccountRoleArn := cmd.PersistentFlags().Lookup("crossAccountRoleArn").Value.String()
-		env := cmd.PersistentFlags().Lookup("env").Value.String()
 		externalId := cmd.PersistentFlags().Lookup("externalId").Value.String()
 
-		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, crossAccountRoleArn, env, externalId)
+		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, crossAccountRoleArn, externalId)
 
 		if authFlag {
-			getListloadbalncers(region, crossAccountRoleArn, acKey, secKey, env, externalId)
+			getListloadbalncers(region, crossAccountRoleArn, acKey, secKey, externalId)
 		}
 	},
 }
 
 // json.Unmarshal
-func getListloadbalncers(region string, crossAccountRoleArn string, accessKey string, secretKey string, env string, externalId string) (*elbv2.DescribeLoadBalancersOutput, error) {
+func getListloadbalncers(region string, crossAccountRoleArn string, accessKey string, secretKey string,  externalId string) (*elbv2.DescribeLoadBalancersOutput, error) {
 	log.Println("getting load balncer list summary")
 
 	listlbClient := client.GetClient(region, crossAccountRoleArn, accessKey, secretKey, externalId)
@@ -69,7 +68,6 @@ func init() {
 	AwsxLoadBalancerCmd.PersistentFlags().String("zone", "", "aws region")
 	AwsxLoadBalancerCmd.PersistentFlags().String("accessKey", "", "aws access key")
 	AwsxLoadBalancerCmd.PersistentFlags().String("secretKey", "", "aws secret key")
-	AwsxLoadBalancerCmd.PersistentFlags().String("env", "", "aws env is required")
 	AwsxLoadBalancerCmd.PersistentFlags().String("crossAccountRoleArn", "", "aws crossAccountRoleArn is required")
 	AwsxLoadBalancerCmd.PersistentFlags().String("externalId", "", "aws external id auth")
 

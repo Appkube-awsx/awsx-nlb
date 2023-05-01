@@ -24,16 +24,15 @@ var GetConfigDataCmd = &cobra.Command{
 		acKey := cmd.Parent().PersistentFlags().Lookup("accessKey").Value.String()
 		secKey := cmd.Parent().PersistentFlags().Lookup("secretKey").Value.String()
 		crossAccountRoleArn := cmd.Parent().PersistentFlags().Lookup("crossAccountRoleArn").Value.String()
-		env := cmd.Parent().PersistentFlags().Lookup("env").Value.String()
 		externalId := cmd.Parent().PersistentFlags().Lookup("externalId").Value.String()
 
-		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, crossAccountRoleArn, env, externalId)
+		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, crossAccountRoleArn, externalId)
 		print(authFlag)
 		// authFlag := true
 		if authFlag {
 			lbArns, _ := cmd.Flags().GetString("lbArns")
 			if lbArns != "" {
-				getLoadBalancerDetails(region, crossAccountRoleArn, acKey, secKey, lbArns, env, externalId)
+				getLoadBalancerDetails(region, crossAccountRoleArn, acKey, secKey, lbArns, externalId)
 			} else {
 				log.Fatalln("lbArns not provided. Program exit")
 			}
@@ -41,7 +40,7 @@ var GetConfigDataCmd = &cobra.Command{
 	},
 }
 
-func getLoadBalancerDetails(region string, crossAccountRoleArn string, accessKey string, secretKey string, lbArns string, env string, externalId string) *elbv2.DescribeLoadBalancersOutput {
+func getLoadBalancerDetails(region string, crossAccountRoleArn string, accessKey string, secretKey string, lbArns string, externalId string) *elbv2.DescribeLoadBalancersOutput {
 	log.Println("Getting load balancer data")
 	lbClient := client.GetClient(region, crossAccountRoleArn, accessKey, secretKey, externalId)
 	input := &elbv2.DescribeLoadBalancersInput{
