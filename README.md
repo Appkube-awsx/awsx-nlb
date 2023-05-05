@@ -11,15 +11,3 @@ awsx-elbv2 --zone <zone> --acccessKey <acccessKey> --secretKey <secretKey> --cro
 ```bash
 awsx-elbv2 getConfigData -t <table> --zone <zone> --accessKey <accessKey> --secretKey <secretKey> --crossAccountRoleArn <crossAccountRoleArn> --external <externalId>  --lbArns <lbArns>
 ```
-
-## To retrieve the cost details of a specific Network Load Balancercmd, run the following command:
-
-```bash
-awsx-elbv2 getCostData -t <table> --zone <zone> --accessKey <accessKey> --secretKey <secretKey> --crossAccountRoleArn <crossAccountRoleArn> --external <externalId>
-```
-
-## To retrieve the cost Spikes details of a specific Network Load Balancercmd, run the following command:
-
-```bash
-awsx-elbv2 GetCostSpike -t <table> --zone <zone> --accessKey <accessKey> --secretKey <secretKey> --crossAccountRoleArn <crossAccountRoleArn> --external <externalId>  --granularity <granularity> --startDate <startDate> --endDate <endDate>
-```

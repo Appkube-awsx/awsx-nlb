@@ -60,8 +60,6 @@ func Execute() {
 func init() {
 
 	AwsxLoadBalancerCmd.AddCommand(loadbalancercmd.GetConfigDataCmd)
-	AwsxLoadBalancerCmd.AddCommand(loadbalancercmd.GetCostDataCmd)
-	AwsxLoadBalancerCmd.AddCommand(loadbalancercmd.GetCostSpikeCmd)
 
 	AwsxLoadBalancerCmd.PersistentFlags().String("vaultUrl", "", "vault end point")
 	AwsxLoadBalancerCmd.PersistentFlags().String("accountId", "", "aws account number")
