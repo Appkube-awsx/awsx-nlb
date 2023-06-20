@@ -1,3 +1,6 @@
+/*
+Copyright © 2023 Afreen Khan afreen.khan@synectiks.com
+*/
 package cmd
 
 import (
@@ -5,9 +8,8 @@ import (
 	"os"
 
 	"github.com/Appkube-awsx/awsx-elbv2/authenticator"
-	"github.com/Appkube-awsx/awsx-elbv2/client"
 	"github.com/Appkube-awsx/awsx-elbv2/cmd/loadbalancercmd"
-	"github.com/aws/aws-sdk-go/service/elbv2"
+	"github.com/Appkube-awsx/awsx-elbv2/controllers"
 	"github.com/spf13/cobra"
 )
 
@@ -17,37 +19,25 @@ var AwsxLoadBalancerCmd = &cobra.Command{
 	Long:  `get List of loadbalancers command gets resource counts details of an AWS account`,
 
 	Run: func(cmd *cobra.Command, args []string) {
+		log.Println("Command elbv2 started")
 
-		log.Println("Command List of loadbalancers started")
-		vaultUrl := cmd.PersistentFlags().Lookup("vaultUrl").Value.String()
-		accountNo := cmd.PersistentFlags().Lookup("accountId").Value.String()
-		region := cmd.PersistentFlags().Lookup("zone").Value.String()
-		acKey := cmd.PersistentFlags().Lookup("accessKey").Value.String()
-		secKey := cmd.PersistentFlags().Lookup("secretKey").Value.String()
-		crossAccountRoleArn := cmd.PersistentFlags().Lookup("crossAccountRoleArn").Value.String()
-		externalId := cmd.PersistentFlags().Lookup("externalId").Value.String()
+		authFlag := authenticator.RootCommandAuth(cmd)
 
-		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, crossAccountRoleArn, externalId)
+        marker := cmd.Flags().Lookup("marker").Value.String()
+		all, _ := cmd.Flags().GetBool("all")
 
-		if authFlag {
-			getListloadbalncers(region, crossAccountRoleArn, acKey, secKey, externalId)
+		if authFlag{
+			
+			if all{
+				controllers.AllElbv2ListController(authenticator.ClientAuth)
+			}else{
+				controllers.Elbv2ListController(marker, authenticator.ClientAuth)
+			}
 		}
+
 	},
 }
 
-// json.Unmarshal
-func getListloadbalncers(region string, crossAccountRoleArn string, accessKey string, secretKey string,  externalId string) (*elbv2.DescribeLoadBalancersOutput, error) {
-	log.Println("getting load balncer list summary")
-
-	listlbClient := client.GetClient(region, crossAccountRoleArn, accessKey, secretKey, externalId)
-	lbRequest := &elbv2.DescribeLoadBalancersInput{}
-	lbResponse, err := listlbClient.DescribeLoadBalancers(lbRequest)
-	if err != nil {
-		log.Fatalln("Error:in getting  load balncer list", err)
-	}
-	log.Println(lbResponse)
-	return lbResponse, err
-}
 
 func Execute() {
 	err := AwsxLoadBalancerCmd.Execute()
@@ -60,6 +50,15 @@ func Execute() {
 func init() {
 
 	AwsxLoadBalancerCmd.AddCommand(loadbalancercmd.GetConfigDataCmd)
+	AwsxLoadBalancerCmd.AddCommand(loadbalancercmd.GetLatencyCmd)
+	AwsxLoadBalancerCmd.AddCommand(loadbalancercmd.GetNumberOfErrorCmd)
+	AwsxLoadBalancerCmd.AddCommand(loadbalancercmd.GetDetailOfErrorCmd)
+	AwsxLoadBalancerCmd.AddCommand(loadbalancercmd.GetTotalNumberOfElbv2Cmd)
+
+
+	AwsxLoadBalancerCmd.Flags().String("marker", "", "marker for next list")
+	AwsxLoadBalancerCmd.Flags().Bool("all", false, "to get all lbArns at once")
+	
 
 	AwsxLoadBalancerCmd.PersistentFlags().String("vaultUrl", "", "vault end point")
 	AwsxLoadBalancerCmd.PersistentFlags().String("accountId", "", "aws account number")

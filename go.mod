@@ -3,7 +3,8 @@ module github.com/Appkube-awsx/awsx-elbv2
 go 1.19
 
 require (
-	github.com/aws/aws-sdk-go v1.44.246
+	github.com/Appkube-awsx/awsx-common v1.0.7
+	github.com/aws/aws-sdk-go v1.44.278
 	github.com/spf13/cobra v1.7.0
 )
 
