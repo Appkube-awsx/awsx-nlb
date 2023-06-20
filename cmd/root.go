@@ -7,9 +7,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/Appkube-awsx/awsx-elbv2/authenticator"
-	"github.com/Appkube-awsx/awsx-elbv2/cmd/loadbalancercmd"
-	"github.com/Appkube-awsx/awsx-elbv2/controllers"
+	"github.com/Appkube-awsx/awsx-nlb/authenticator"
+	"github.com/Appkube-awsx/awsx-nlb/cmd/loadbalancercmd"
+	"github.com/Appkube-awsx/awsx-nlb/controllers"
 	"github.com/spf13/cobra"
 )
 

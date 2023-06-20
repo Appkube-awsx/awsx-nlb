@@ -3,11 +3,11 @@ package controllers
 import (
 	"fmt"
 
-	"github.com/Appkube-awsx/awsx-elbv2/authenticator"
+	"github.com/Appkube-awsx/awsx-nlb/authenticator"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 
 	"github.com/Appkube-awsx/awsx-common/client"
-	"github.com/Appkube-awsx/awsx-elbv2/services"
+	"github.com/Appkube-awsx/awsx-nlb/services"
 )
 
 func Elbv2DetailsErrorController(lbArns string, auth client.Auth) {

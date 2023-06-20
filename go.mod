@@ -1,4 +1,4 @@
-module github.com/Appkube-awsx/awsx-elbv2
+module github.com/Appkube-awsx/awsx-nlb
 
 go 1.19
 

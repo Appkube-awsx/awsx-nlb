@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/elbv2"
 
-	"github.com/Appkube-awsx/awsx-elbv2/utils"
+	"github.com/Appkube-awsx/awsx-nlb/utils"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 )
 

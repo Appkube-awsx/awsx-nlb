@@ -4,8 +4,8 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package loadbalancercmd
 
 import (
-	"github.com/Appkube-awsx/awsx-elbv2/authenticator"
-	"github.com/Appkube-awsx/awsx-elbv2/controllers"
+	"github.com/Appkube-awsx/awsx-nlb/authenticator"
+	"github.com/Appkube-awsx/awsx-nlb/controllers"
 	"github.com/spf13/cobra"
 )
 

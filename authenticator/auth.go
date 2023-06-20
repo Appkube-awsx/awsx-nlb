@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/Appkube-awsx/awsx-common/client"
-	"github.com/Appkube-awsx/awsx-elbv2/vault"
+	"github.com/Appkube-awsx/awsx-nlb/vault"
 	"github.com/spf13/cobra"
 )
 

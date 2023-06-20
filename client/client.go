@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Appkube-awsx/awsx-elbv2/awssession"
+	"github.com/Appkube-awsx/awsx-nlb/awssession"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/elbv2"
 	"github.com/aws/aws-sdk-go/service/sts"

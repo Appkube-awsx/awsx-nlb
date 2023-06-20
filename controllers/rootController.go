@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/Appkube-awsx/awsx-common/client"
-	"github.com/Appkube-awsx/awsx-elbv2/authenticator"
-	"github.com/Appkube-awsx/awsx-elbv2/services"
+	"github.com/Appkube-awsx/awsx-nlb/authenticator"
+	"github.com/Appkube-awsx/awsx-nlb/services"
 	"github.com/aws/aws-sdk-go/service/elbv2"
 	// "github.com/aws/aws-sdk-go/service/elbv2"
 )
