@@ -11,15 +11,15 @@ import (
 //  ClientAuth for storing auth data
 var ClientAuth client.Auth
 
-func AuthenticateData(vaultUrl string, accountNo string, region string, acKey string, secKey string, crossAccountRoleArn string,  externalId string) bool {
+func AuthenticateData(accountNo string, region string, acKey string, secKey string, crossAccountRoleArn string,  externalId string) bool {
 
-	if vaultUrl != "" && accountNo != "" {
+	if  accountNo != "" {
 		if region == "" {
 			log.Fatalln("Zone not provided. Program exit")
 			return false
 		}
 		log.Println("Getting account details")
-		data, err := vault.GetAccountDetails(vaultUrl, accountNo)
+		data, err := vault.GetAccountDetails(accountNo)
 		if err != nil {
 			log.Println("Error in calling the account details api. \n", err)
 			return false
@@ -48,7 +48,7 @@ func ChildCommandAuth(cmd *cobra.Command) bool {
 		cmd.Parent().PersistentFlags().Lookup("secretKey").Value.String(),
 		cmd.Parent().PersistentFlags().Lookup("externalId").Value.String(),
 	}
-	authFlag := AuthenticateData("", "", ClientAuth.Region, ClientAuth.AccessKey, ClientAuth.SecretKey, ClientAuth.CrossAccountRoleArn, ClientAuth.ExternalId)
+	authFlag := AuthenticateData("", ClientAuth.Region, ClientAuth.AccessKey, ClientAuth.SecretKey, ClientAuth.CrossAccountRoleArn, ClientAuth.ExternalId)
 
 	return authFlag
 }
@@ -64,7 +64,7 @@ func RootCommandAuth(cmd *cobra.Command) bool {
 		cmd.PersistentFlags().Lookup("externalId").Value.String(),
 	}
 
-	authFlag := AuthenticateData("", "", ClientAuth.Region, ClientAuth.AccessKey, ClientAuth.SecretKey, ClientAuth.CrossAccountRoleArn, ClientAuth.ExternalId)
+	authFlag := AuthenticateData("", ClientAuth.Region, ClientAuth.AccessKey, ClientAuth.SecretKey, ClientAuth.CrossAccountRoleArn, ClientAuth.ExternalId)
 
 	return authFlag
 }
@@ -72,7 +72,7 @@ func RootCommandAuth(cmd *cobra.Command) bool {
 // ApiAuth -> for authentication of api request
 func ApiAuth(auth client.Auth) bool {
 
-	authFlag := AuthenticateData("", "", auth.Region, auth.AccessKey, auth.SecretKey, auth.CrossAccountRoleArn, auth.ExternalId)
+	authFlag := AuthenticateData("", auth.Region, auth.AccessKey, auth.SecretKey, auth.CrossAccountRoleArn, auth.ExternalId)
 
 	if !authFlag {
 		log.Fatalln("authentication error")

@@ -17,10 +17,10 @@ type Response struct {
 }
 
 
-func GetAccountDetails(vaultUrl string, accountNo string) (*Response, error) {
+func GetAccountDetails(accountNo string) (*Response, error) { // vaultUrl string
 	log.Println("Calling account details API")
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", vaultUrl+"?accountNo="+accountNo, nil)
+	req, err := http.NewRequest("GET", accountNo, nil) //vaultUrl+"?accountNo="+
 	if err != nil {
 		log.Fatalln(err.Error())
 		return nil, err

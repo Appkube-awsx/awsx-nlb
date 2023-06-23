@@ -60,7 +60,7 @@ func init() {
 	AwsxLoadBalancerCmd.Flags().Bool("all", false, "to get all lbArns at once")
 	
 
-	AwsxLoadBalancerCmd.PersistentFlags().String("vaultUrl", "", "vault end point")
+	// AwsxLoadBalancerCmd.PersistentFlags().String("vaultUrl", "", "vault end point")
 	AwsxLoadBalancerCmd.PersistentFlags().String("accountId", "", "aws account number")
 	AwsxLoadBalancerCmd.PersistentFlags().String("zone", "", "aws region")
 	AwsxLoadBalancerCmd.PersistentFlags().String("accessKey", "", "aws access key")
